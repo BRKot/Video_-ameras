@@ -50,8 +50,8 @@ final class VideoPlayerViewSingletone: UIView, VLCMediaPlayerDelegate {
     
     func playStream(url: URL, username: String? = nil, password: String? = nil) {
         
-        DispatchQueue.main.async { [weak self] in
-            self?.errorLabel.isHidden = true
+        DispatchQueue.main.async {
+            self.errorLabel.isHidden = true
         }
         
         let media = VLCMedia(url: url)
@@ -63,6 +63,7 @@ final class VideoPlayerViewSingletone: UIView, VLCMediaPlayerDelegate {
         }
         
         
+        self.mediaPlayer.stop()
         self.mediaPlayer.media = nil
         self.mediaPlayer.media = media
         startLoadingTimer()
@@ -118,28 +119,25 @@ extension VideoPlayerViewSingletone {
 
 extension VideoPlayerViewSingletone {
     
-    func handleDeviceRotation(parentViewController: UIViewController) {
+    func handleDeviceRotation(parentViewController: UIViewController, completionNeedRefresh: @escaping(() -> Void)) {
         let orientation = UIDevice.current.orientation
         
         if orientation.isLandscape {
             enterFullscreen(parentViewController: parentViewController)
         } else if orientation.isPortrait {
             exitFullscreen()
+            completionNeedRefresh()
         }
     }
     
     private func enterFullscreen(parentViewController: UIViewController) {
         guard !isFullscreen else { return }
-        
         isFullscreen = true
-        
-        // Удаляем из текущей иерархии
+
         removeFromSuperview()
         
-        // Добавляем к корневому view контроллера
         parentViewController.view.addSubview(self)
-        
-        // Настраиваем констрейнты для полноэкранного режима
+
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: parentViewController.view.topAnchor),
@@ -155,7 +153,6 @@ extension VideoPlayerViewSingletone {
     private func exitFullscreen() {
         guard isFullscreen else { return }
         isFullscreen = false
-        // Удаляем из текущей иерархии
         removeFromSuperview()
     }
 }

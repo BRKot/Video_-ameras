@@ -19,7 +19,8 @@ protocol VideoListPresenterProtocol: VideoListInteractorOutputProtocol {
     var router: VideoListRouterProtocol? { get set }
     
     func viewDidLoad()
-    func didScrollToItem(at index: Int)
+    func getCountVideoStreams() -> Int
+    func getVideoStream(index: Int) -> VideoStream?
 }
 
 protocol VideoListInteractorInputProtocol: AnyObject {

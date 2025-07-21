@@ -22,7 +22,13 @@ protocol VideoListEntityProtocol {
 final class VideoListEntity: VideoListEntityProtocol {
     func fetchVideoStreams() -> [VideoStream] {
         return [
-            
+            VideoStream(
+                url: URL(string: "rtsp://178.141.83.23:60555/ajUc3JQx_s/")!,
+                title: "Camera 1",
+                requiresAuth: false,
+                username: nil,
+                password: nil
+            ),
             VideoStream(
                 url: URL(string: "rtsp://178.141.83.23:60555/Rrxy9uhI_s/")!,
                 title: "Camera 2",
@@ -33,13 +39,6 @@ final class VideoListEntity: VideoListEntityProtocol {
             VideoStream(
                 url: URL(string: "rtsp://178.141.83.23:60555/KZNvfCCS_s/")!,
                 title: "Camera 3",
-                requiresAuth: false,
-                username: nil,
-                password: nil
-            ),
-            VideoStream(
-                url: URL(string: "rtsp://178.141.83.23:60555/ajUc3JQx_s/")!,
-                title: "Camera 1",
                 requiresAuth: false,
                 username: nil,
                 password: nil

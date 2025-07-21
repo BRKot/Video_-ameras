@@ -8,15 +8,9 @@
 import UIKit
 
 final class VideoListViewController: UIViewController, VideoListViewProtocol {
-    
-    
     var presenter: VideoListPresenterProtocol?
-    private var videoPlayers: [Int: VideoPlayerView] = [:]
     
     private var collectionView: UICollectionView!
-    
-    private var videoStreams: [VideoStream] = []
-    
     private var activeVideoCell: IndexPath = IndexPath(row: 0, section: 0)
     
     override func viewDidLoad() {
@@ -30,27 +24,6 @@ final class VideoListViewController: UIViewController, VideoListViewProtocol {
         setupCollectionView()
     }
 
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        VideoPlayerViewSingletone.sharing.handleDeviceRotation(parentViewController: self)
-    }
-    
-    override var prefersStatusBarHidden: Bool {
-        return VideoPlayerViewSingletone.sharing.isFullscreen
-    }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
-    }
-    
-    
-    
-    /////////////////////////////////////////////////////////////////////////////////////
-    
-    
     private func setupCollectionView() {
         
         let layout = UICollectionViewFlowLayout()
@@ -70,8 +43,8 @@ final class VideoListViewController: UIViewController, VideoListViewProtocol {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        layout.scrollDirection = .vertical // вертикальная прокрутка
-        layout.minimumLineSpacing = collectionView.bounds.width * 9/16 / 1.8     // расстояние между ячейками
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = collectionView.bounds.width * 9/16 / 2
         
         // Рассчитываем отступ сверху, чтобы первая ячейка была по центру
         let collectionViewHeight = collectionView.bounds.height
@@ -85,8 +58,6 @@ final class VideoListViewController: UIViewController, VideoListViewProtocol {
     }
     
     func update(with videos: [VideoStream]) {
-        videoStreams = videos
-        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -95,7 +66,7 @@ final class VideoListViewController: UIViewController, VideoListViewProtocol {
 
 extension VideoListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videoStreams.count // Количество ячеек
+        return presenter?.getCountVideoStreams() ?? 0 // Количество ячеек
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,15 +74,17 @@ extension VideoListViewController: UICollectionViewDataSource {
         cell.layer.cornerRadius = 21
         cell.tag = indexPath.row
         print(indexPath.row)
-        if (self.activeVideoCell.row == 0 && indexPath.row == 0 && videoStreams.count > 0) ||
+        if (self.activeVideoCell.row == 0 && indexPath.row == 0 && (presenter?.getCountVideoStreams() ?? 0) > 0) ||
             (self.activeVideoCell.row == indexPath.row){
-            cell.configureStream(with: videoStreams[indexPath.row])
+            guard let videoStream = presenter?.getVideoStream(index: indexPath.row) else { return UICollectionViewCell() }
+            cell.configureStream(with: videoStream)
         }
         
         return cell
     }
 }
 
+//MARK: реализация делегатов CollectionView
 extension VideoListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
@@ -138,10 +111,30 @@ extension VideoListViewController {
                         }
                         
                         self.activeVideoCell = indexPath
-                        cell.configureStream(with: videoStreams[indexPath.row])
+                        guard let videoStream = presenter?.getVideoStream(index: indexPath.row) else { return }
+                        cell.configureStream(with: videoStream)
                     }
                 }
             }
         }
     }
 }
+
+//MARK: поворот VideoListViewController
+extension VideoListViewController {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        VideoPlayerViewSingletone.sharing.handleDeviceRotation(parentViewController: self) {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return VideoPlayerViewSingletone.sharing.isFullscreen
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+}
+

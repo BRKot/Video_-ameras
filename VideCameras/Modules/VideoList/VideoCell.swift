@@ -1,20 +1,11 @@
-//
-//  VideoCell.swift
-//  VideCamersWithoutStoryBoard
-//
-//  Created by Databriz on 09/07/2025.
-//
 
 import UIKit
 
-// MARK: - Video Cell
 class VideoCell: UICollectionViewCell {
     
     static let identifier = "VideoCell"
     
     weak var videoPlayerView: VideoPlayerViewSingletone?
-    
-    unowned var containerView: UIView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

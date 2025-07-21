@@ -10,23 +10,20 @@ final class VideoListPresenter: VideoListPresenterProtocol {
     var interactor: VideoListInteractorInputProtocol?
     var router: VideoListRouterProtocol?
     
-    private var videoStreams: [VideoStream] = []
     private var currentPlayingIndex: Int?
+    private var videoStreams: [VideoStream] = []
+    
+    func getCountVideoStreams() -> Int {
+        videoStreams.count
+    }
     
     func viewDidLoad() {
         interactor?.fetchVideoStreams()
     }
     
-    func didScrollToItem(at index: Int) {
-        guard index < videoStreams.count else { return }
-        
-        if let currentIndex = currentPlayingIndex, currentIndex != index {
-            // Notify view to stop previous video
-            view?.update(with: videoStreams)
-        }
-        
-        currentPlayingIndex = index
-        view?.update(with: videoStreams)
+    func getVideoStream(index: Int) -> VideoStream? {
+        guard index >= 0 && index < videoStreams.count else { return nil }
+        return videoStreams[index]
     }
 }
 
