@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5262448EF97102FE824A7786 /* libPods-VideCameras.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65286B493DB40BFDF415CD43 /* libPods-VideCameras.a */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		3FA2750E2B75AEDD940C70D0 /* Pods-VideCameras.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideCameras.release.xcconfig"; path = "Target Support Files/Pods-VideCameras/Pods-VideCameras.release.xcconfig"; sourceTree = "<group>"; };
+		65286B493DB40BFDF415CD43 /* libPods-VideCameras.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VideCameras.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7EDB8FD2E2DDB3500BD91DD /* VideCameras.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideCameras.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF4FACAC2C4227609C82DEA0 /* Pods-VideCameras.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideCameras.debug.xcconfig"; path = "Target Support Files/Pods-VideCameras/Pods-VideCameras.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5262448EF97102FE824A7786 /* libPods-VideCameras.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35895CBE1DAAC86DF734A58E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BF4FACAC2C4227609C82DEA0 /* Pods-VideCameras.debug.xcconfig */,
+				3FA2750E2B75AEDD940C70D0 /* Pods-VideCameras.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A03819F3597427673B8C6154 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65286B493DB40BFDF415CD43 /* libPods-VideCameras.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B7EDB8F42E2DDB3500BD91DD = {
 			isa = PBXGroup;
 			children = (
 				B7EDB8FF2E2DDB3500BD91DD /* VideCameras */,
 				B7EDB8FE2E2DDB3500BD91DD /* Products */,
+				35895CBE1DAAC86DF734A58E /* Pods */,
+				A03819F3597427673B8C6154 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,9 +92,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7EDB9102E2DDB3700BD91DD /* Build configuration list for PBXNativeTarget "VideCameras" */;
 			buildPhases = (
+				5DB20B5ACF2DA213EF85AEB3 /* [CP] Check Pods Manifest.lock */,
 				B7EDB8F92E2DDB3500BD91DD /* Sources */,
 				B7EDB8FA2E2DDB3500BD91DD /* Frameworks */,
 				B7EDB8FB2E2DDB3500BD91DD /* Resources */,
+				6FB3CD681265B41BDA62C7A2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -77,8 +106,6 @@
 				B7EDB8FF2E2DDB3500BD91DD /* VideCameras */,
 			);
 			name = VideCameras;
-			packageProductDependencies = (
-			);
 			productName = VideCameras;
 			productReference = B7EDB8FD2E2DDB3500BD91DD /* VideCameras.app */;
 			productType = "com.apple.product-type.application";
@@ -127,6 +154,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5DB20B5ACF2DA213EF85AEB3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VideCameras-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FB3CD681265B41BDA62C7A2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideCameras/Pods-VideCameras-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideCameras/Pods-VideCameras-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VideCameras/Pods-VideCameras-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B7EDB8F92E2DDB3500BD91DD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -140,12 +213,14 @@
 /* Begin XCBuildConfiguration section */
 		B7EDB9112E2DDB3700BD91DD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF4FACAC2C4227609C82DEA0 /* Pods-VideCameras.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JG35T4S62C;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideCameras/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -153,6 +228,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -168,12 +244,14 @@
 		};
 		B7EDB9122E2DDB3700BD91DD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FA2750E2B75AEDD940C70D0 /* Pods-VideCameras.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JG35T4S62C;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideCameras/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -181,6 +259,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
